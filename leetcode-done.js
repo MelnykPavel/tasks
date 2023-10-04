@@ -185,6 +185,85 @@ const tasks = {
     };
     return majorityElement([2, 2, 1, 1, 1, 2, 2]);
   },
+
+  containsDuplicate: function () {
+    // TASK LINK
+    // https://leetcode.com/problems/contains-duplicate/description/
+
+    const containsDuplicate = function (nums) {
+      return new Set(nums).size !== nums.length;
+    };
+    return containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]);
+  },
+  summaryRanges: function () {
+    // TASK LINK
+    // https://leetcode.com/problems/summary-ranges/description/
+
+    const summaryRanges = function (nums) {
+      if (!nums.length) {
+        return [];
+      }
+
+      let startRange = nums[0];
+      let endRange = nums[0];
+      let resultArr = [];
+
+      for (let i = 0; i <= nums.length; i++) {
+        if (nums[i] === endRange || nums[i] === nums[i - 1] + 1) {
+          endRange = nums[i];
+        } else {
+          let str =
+            startRange === endRange
+              ? `${endRange}`
+              : `${startRange}->${endRange}`;
+
+          resultArr.push(str);
+
+          startRange = nums[i];
+          endRange = nums[i];
+        }
+      }
+
+      return resultArr;
+    };
+
+    return summaryRanges([1, 2]);
+  },
+  missingNumber: function () {
+    // TASK LINK
+    // https://leetcode.com/problems/missing-number/description/
+
+    const missingNumber = function (nums) {
+      return nums.reduce((acc, val, index) => acc ^ val ^ (index + 1), 0);
+    };
+    return missingNumber([9, 6, 4, 8, 3, 5, 7, 0, 1]);
+  },
+  moveZeroes: function () {
+    // TASK LINK
+    // https://leetcode.com/problems/move-zeroes/description/
+
+    const moveZeroes = function (nums) {
+      return nums.sort(function (a, b) {
+        if (a === 0 && b !== 0) return 1;
+        if (a !== 0 && b === 0) return -1;
+      });
+    };
+    return moveZeroes([0, 1, 0, 3, 12]);
+  },
+  NumArray: function () {
+    // TASK LINK
+    // https://leetcode.com/problems/range-sum-query-immutable/description/
+
+    var NumArray = function (nums) {
+      this.nums = nums;
+    };
+    NumArray.prototype.sumRange = function (left, right) {
+      return this.nums.reduce((acc, item, index) => {
+        if (index >= left && index <= right) return (acc += item);
+        return acc;
+      }, 0);
+    };
+  },
 };
 
 tasks.searchInsert();
